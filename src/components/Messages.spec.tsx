@@ -27,21 +27,19 @@ describe("Messages", () => {
     render(<Messages messages={[message1, message2]} />);
 
     const headerCells = screen.getAllByRole("columnheader");
-
-    ["Message", "Topic", "QoS"].forEach((headerText, index) => {
-      expect(headerCells[index]).toHaveTextContent(headerText);
-    });
+    expect(headerCells.length).toBe(3);
+    expect(headerCells[0]).toHaveTextContent("Message");
+    expect(headerCells[1]).toHaveTextContent("Topic");
+    expect(headerCells[2]).toHaveTextContent("QoS");
   });
 
   it("lists one message", () => {
     render(<Messages messages={[message1]} />);
 
     const dataRows = screen.getAllByRole("row").slice(1);
-
     expect(dataRows.length).toBe(1);
 
     const dataCells = within(dataRows[0]).getAllByRole("cell");
-
     expect(dataCells[0]).toHaveTextContent(message1.message);
     expect(dataCells[1]).toHaveTextContent(message1.topic);
     expect(dataCells[2]).toHaveTextContent(message1.qos.toString());
@@ -52,12 +50,10 @@ describe("Messages", () => {
     render(<Messages messages={messages} />);
 
     const dataRows = screen.getAllByRole("row").slice(1);
-
     expect(dataRows.length).toBe(2);
 
     messages.forEach(({ message, topic, qos }, index) => {
       const dataCells = within(dataRows[index]).getAllByRole("cell");
-
       expect(dataCells[0]).toHaveTextContent(message);
       expect(dataCells[1]).toHaveTextContent(topic);
       expect(dataCells[2]).toHaveTextContent(qos.toString());
