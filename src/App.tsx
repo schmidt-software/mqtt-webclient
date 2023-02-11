@@ -1,4 +1,15 @@
-import "./styles.css";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+
+import CssBaseline from "@mui/material/CssBaseline";
+import GlobalStyles from "@mui/material/GlobalStyles";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
 import MqttConnection from "./components/MqttConnection";
 import useMqttConnection from "./components/useMqttConnection";
@@ -14,18 +25,46 @@ export default function App() {
 
   return (
     <>
-      <h1>MQTT Web Client</h1>
-      <h2>Connection</h2>
-      <MqttConnection {...mqttConnection} />
-      {mqttClient && (
-        <>
-          <h2>Subscriptions</h2>
-          <Subscriptions mqttClient={mqttClient} />
-          <h2>Messages</h2>
-          <NewMessage mqttClient={mqttClient} />
-          <Messages messages={messages} />
-        </>
-      )}
+      <CssBaseline />
+      <GlobalStyles styles={{ body: { backgroundColor: "lightgray" } }} />
+      <Container maxWidth="md">
+        <Typography component="h1" variant="h4" my={2}>
+          MQTT Web Client
+        </Typography>
+        <Stack spacing={4}>
+          <Card>
+            <CardContent component="section">
+              <Typography component="h2" variant="h5" mb={2}>
+                Connection
+              </Typography>
+              <MqttConnection {...mqttConnection} />
+            </CardContent>
+          </Card>
+          {mqttClient && (
+            <>
+              <Card>
+                <CardContent component="section">
+                  <Typography component="h2" variant="h5" mb={2}>
+                    Subscriptions
+                  </Typography>
+                  <Subscriptions mqttClient={mqttClient} />
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent component="section">
+                  <Typography component="h2" variant="h5" mb={2}>
+                    Messages
+                  </Typography>
+                  <Stack spacing={2}>
+                    <NewMessage mqttClient={mqttClient} />
+                    <Messages messages={messages} />
+                  </Stack>
+                </CardContent>
+              </Card>
+            </>
+          )}
+        </Stack>
+      </Container>
     </>
   );
 }

@@ -1,3 +1,10 @@
+import Typography from "@mui/material/Typography";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+
 import useMessages from "./useMessages";
 
 type Props = {
@@ -6,27 +13,27 @@ type Props = {
 
 export default function Messages({ messages }: Props) {
   if (!messages.length) {
-    return <>No messages</>;
+    return <Typography variant="body1">No messages</Typography>;
   }
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Message</th>
-          <th>Topic</th>
-          <th>QoS</th>
-        </tr>
-      </thead>
-      <tbody>
+    <Table aria-label="Messages">
+      <TableHead>
+        <TableRow>
+          <TableCell component="th">Message</TableCell>
+          <TableCell component="th">Topic</TableCell>
+          <TableCell component="th">QoS</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
         {messages.map(({ id, message, topic, qos }) => (
-          <tr key={id}>
-            <td>{message}</td>
-            <td>{topic}</td>
-            <td>{qos}</td>
-          </tr>
+          <TableRow key={id}>
+            <TableCell style={{ whiteSpace: "pre-wrap" }}>{message}</TableCell>
+            <TableCell>{topic}</TableCell>
+            <TableCell>{qos}</TableCell>
+          </TableRow>
         ))}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 }

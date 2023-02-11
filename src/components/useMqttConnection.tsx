@@ -9,7 +9,7 @@ const mqttDefaultConnectionOptions = {
   clean: true,
   resubscribe: false,
   keepalive: 60,
-  reconnectPeriod: 0
+  reconnectPeriod: 0,
 };
 
 export default function useMqttConnection() {
@@ -17,9 +17,8 @@ export default function useMqttConnection() {
     `webclient_${Math.random().toString(16).substr(2, 8)}`
   );
   const [mqttClient, setMqttClient] = useState<MqttClient | null>(null);
-  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(
-    "disconnected"
-  );
+  const [connectionStatus, setConnectionStatus] =
+    useState<ConnectionStatus>("disconnected");
   const [error, setError] = useState("");
 
   const connect = useCallback(
@@ -31,7 +30,7 @@ export default function useMqttConnection() {
         clientId,
         username,
         password,
-        ...mqttDefaultConnectionOptions
+        ...mqttDefaultConnectionOptions,
       });
       client.on("connect", () => {
         setMqttClient(client);
@@ -61,6 +60,6 @@ export default function useMqttConnection() {
     mqttClient,
     connectionStatus,
     error,
-    connect
+    connect,
   };
 }

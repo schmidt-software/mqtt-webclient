@@ -1,6 +1,11 @@
 import { MqttClient, QoS } from "mqtt";
 import { FormEvent, useState } from "react";
 
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+
 interface Props {
   mqttClient: MqttClient;
 }
@@ -22,34 +27,49 @@ export default function NewMessage({ mqttClient }: Props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="topic"
-        name="topic"
-        required
-        defaultValue={topic}
-        onChange={(e) => setTopic(e.target.value.trim())}
-      />
-      <select
-        name="qos"
-        placeholder="qos"
-        required
-        defaultValue={qos}
-        onChange={(e) => setQos(parseInt(e.target.value, 10) as QoS)}
-      >
-        {[0, 1, 2].map((i) => (
-          <option key={i} value={i}>
-            {i}
-          </option>
-        ))}
-      </select>
-      <textarea
-        name="message"
-        required
-        defaultValue={message}
-        onChange={(e) => setMessage(e.target.value.trim())}
-      />
-      <button type="submit">PublishMessage</button>
+      <Grid container spacing={2}>
+        <Grid item xs={9}>
+          <TextField
+            type="text"
+            label="Topic"
+            name="topic"
+            required
+            onChange={(e) => setTopic(e.target.value.trim())}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <TextField
+            name="qos"
+            label="QoS"
+            defaultValue="0"
+            onChange={(e) => setQos(parseInt(e.target.value, 10) as QoS)}
+            select
+            fullWidth
+          >
+            {[0, 1, 2].map((i) => (
+              <MenuItem key={i} value={i}>
+                {i}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            name="message"
+            label="Message"
+            required
+            onChange={(e) => setMessage(e.target.value.trim())}
+            multiline
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button type="submit" variant="contained">
+            Publish Message
+          </Button>
+        </Grid>
+      </Grid>
     </form>
   );
 }

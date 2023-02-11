@@ -1,6 +1,15 @@
 import { MqttClient } from "mqtt";
 import { FormEvent, useState } from "react";
 
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
+
 interface Props {
   mqttClient: MqttClient;
 }
@@ -8,12 +17,16 @@ interface Props {
 export default function Subscriptions({ mqttClient }: Props) {
   const [subsctiptions, setSubscriptions] = useState<string[]>([]);
   const [newTopic, setNewTopic] = useState<string>("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (newTopic && !subsctiptions.includes(newTopic)) {
+      setIsSubscribing(true);
       mqttClient.subscribe(newTopic, { qos: 0 }, (error) => {
+        setIsSubscribing(false);
+
         if (error) {
           alert(`${error.name} ${error.message}`);
           return;
@@ -27,19 +40,37 @@ export default function Subscriptions({ mqttClient }: Props) {
   };
 
   return (
-    <>
+    <Stack spacing={2}>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="new_topic"
-          defaultValue={newTopic}
-          onChange={(e) => setNewTopic(e.target.value.trim())}
-        />
-        <button type="submit">Subscribe</button>
+        <Stack spacing={2}>
+          <TextField
+            type="text"
+            name="new_topic"
+            label="Topic"
+            onChange={(e) => setNewTopic(e.target.value.trim())}
+          />
+          <div>
+            <Button type="submit" variant="contained" disabled={isSubscribing}>
+              {!isSubscribing && "Subscribe"}
+              {isSubscribing && <>Subscribing&hellip;</>}
+            </Button>
+          </div>
+        </Stack>
       </form>
-      {subsctiptions.map((subscription) => (
-        <div key={subscription}>{subscription}</div>
-      ))}
-    </>
+      {!subsctiptions.length && (
+        <Typography variant="body1">No subscriptions</Typography>
+      )}
+      {!!subsctiptions.length && (
+        <Table aria-label="Topic subscriptions">
+          <TableBody>
+            {subsctiptions.map((subscription) => (
+              <TableRow key={subscription}>
+                <TableCell>{subscription}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+    </Stack>
   );
 }
