@@ -2,6 +2,8 @@
 
 This is a Web Client for communicating with MQTT brokers.
 
+You can try it in **[Codesandbox](https://githubbox.com/rangyal/mqtt-webclient)**.
+
 ## Installation
 
 Before you can start, build, and test the application, you need to install the necessary packages. To do this, navigate to the project directory in your terminal and run the following command:
