@@ -28,7 +28,7 @@ This will create a production-ready version of the application in the build dire
 
 To run the test suite for the application, run the following command:
 
-    yarn test
+    yarn test --watchAll=false
 
 This will start the test runner and run any tests that have been defined for the application.
 
