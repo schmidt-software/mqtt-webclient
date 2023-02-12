@@ -51,8 +51,7 @@ export default function Subscriptions({ mqttClient }: Props) {
           />
           <div>
             <Button type="submit" variant="contained" disabled={isSubscribing}>
-              {!isSubscribing && "Subscribe"}
-              {isSubscribing && <>Subscribing&hellip;</>}
+              {!isSubscribing ? "Subscribe" : <>Subscribing&hellip;</>}
             </Button>
           </div>
         </Stack>

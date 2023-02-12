@@ -82,17 +82,19 @@ export default function ConnectionSettings({
           />
         </Grid>
         <Grid item xs={6}>
-          {connectionStatus !== "connected" && (
+          {connectionStatus !== "connected" ? (
             <Button
               type="submit"
               variant="contained"
-              disabled={connectionStatus === "connecting"}
+              disabled={connectionStatus !== "disconnected"}
             >
-              {connectionStatus !== "connecting" && "Connect"}
-              {connectionStatus === "connecting" && <>Connecting&hellip;</>}
+              {connectionStatus !== "connecting" ? (
+                "Connect"
+              ) : (
+                <>Connecting&hellip;</>
+              )}
             </Button>
-          )}
-          {connectionStatus === "connected" && (
+          ) : (
             <>
               <Button
                 type="button"
