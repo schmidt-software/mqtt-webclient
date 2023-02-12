@@ -95,15 +95,13 @@ export default function ConnectionSettings({
               )}
             </Button>
           ) : (
-            <>
-              <Button
-                type="button"
-                variant="outlined"
-                onClick={() => mqttClient?.end()}
-              >
-                Disconnect
-              </Button>{" "}
-            </>
+            <Button
+              type="button"
+              variant="outlined"
+              onClick={() => mqttClient?.end()}
+            >
+              Disconnect
+            </Button>
           )}
         </Grid>
         <Grid item xs={6}>
