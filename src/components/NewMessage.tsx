@@ -34,7 +34,8 @@ export default function NewMessage({ mqttClient }: Props) {
             label="Topic"
             name="topic"
             required
-            onChange={(e) => setTopic(e.target.value.trim())}
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
             fullWidth
           />
         </Grid>
@@ -43,6 +44,7 @@ export default function NewMessage({ mqttClient }: Props) {
             name="qos"
             label="QoS"
             defaultValue="0"
+            value={qos}
             onChange={(e) => setQos(parseInt(e.target.value, 10) as QoS)}
             select
             fullWidth
@@ -59,7 +61,8 @@ export default function NewMessage({ mqttClient }: Props) {
             name="message"
             label="Message"
             required
-            onChange={(e) => setMessage(e.target.value.trim())}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             multiline
             fullWidth
           />

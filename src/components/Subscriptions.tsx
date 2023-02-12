@@ -16,15 +16,15 @@ interface Props {
 
 export default function Subscriptions({ mqttClient }: Props) {
   const [subsctiptions, setSubscriptions] = useState<string[]>([]);
-  const [newTopic, setNewTopic] = useState<string>("");
+  const [topic, setTopic] = useState<string>("");
   const [isSubscribing, setIsSubscribing] = useState(false);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (newTopic && !subsctiptions.includes(newTopic)) {
+    if (topic && !subsctiptions.includes(topic)) {
       setIsSubscribing(true);
-      mqttClient.subscribe(newTopic, { qos: 0 }, (error) => {
+      mqttClient.subscribe(topic, { qos: 0 }, (error) => {
         setIsSubscribing(false);
 
         if (error) {
@@ -33,7 +33,7 @@ export default function Subscriptions({ mqttClient }: Props) {
         }
 
         setSubscriptions((currentSubscriptions) =>
-          currentSubscriptions.concat(newTopic)
+          currentSubscriptions.concat(topic)
         );
       });
     }
@@ -47,7 +47,8 @@ export default function Subscriptions({ mqttClient }: Props) {
             type="text"
             name="new_topic"
             label="Topic"
-            onChange={(e) => setNewTopic(e.target.value.trim())}
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
           />
           <div>
             <Button type="submit" variant="contained" disabled={isSubscribing}>

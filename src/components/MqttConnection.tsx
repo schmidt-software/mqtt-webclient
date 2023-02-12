@@ -43,7 +43,8 @@ export default function ConnectionSettings({
             label="Host"
             required
             disabled={isInputDisabled}
-            onChange={(e) => setHost(e.target.value.trim())}
+            value={host}
+            onChange={(e) => setHost(e.target.value)}
             fullWidth
           />
         </Grid>
@@ -54,7 +55,8 @@ export default function ConnectionSettings({
             label="Port"
             required
             disabled={isInputDisabled}
-            onChange={(e) => setPort(e.target.value.trim())}
+            value={port}
+            onChange={(e) => setPort(e.target.value)}
             fullWidth
           />
         </Grid>
@@ -65,8 +67,9 @@ export default function ConnectionSettings({
             label="Username"
             required
             disabled={isInputDisabled}
+            value={username}
             defaultValue={username}
-            onChange={(e) => setUsername(e.target.value.trim())}
+            onChange={(e) => setUsername(e.target.value)}
             fullWidth
           />
         </Grid>
@@ -77,7 +80,8 @@ export default function ConnectionSettings({
             label="Password"
             required
             disabled={isInputDisabled}
-            onChange={(e) => setPassword(e.target.value.trim())}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             fullWidth
           />
         </Grid>
