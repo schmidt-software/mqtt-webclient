@@ -50,7 +50,7 @@ export default function ConnectionSettings({
         </Grid>
         <Grid item xs={12} sm={3}>
           <TextField
-            type="text"
+            type="number"
             name="port"
             label="Port"
             required
@@ -68,7 +68,6 @@ export default function ConnectionSettings({
             required
             disabled={isInputDisabled}
             value={username}
-            defaultValue={username}
             onChange={(e) => setUsername(e.target.value)}
             fullWidth
           />

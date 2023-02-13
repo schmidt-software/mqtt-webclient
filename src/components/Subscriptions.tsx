@@ -15,14 +15,14 @@ interface Props {
 }
 
 export default function Subscriptions({ mqttClient }: Props) {
-  const [subsctiptions, setSubscriptions] = useState<string[]>([]);
+  const [subscriptions, setSubscriptions] = useState<string[]>([]);
   const [topic, setTopic] = useState<string>("");
   const [isSubscribing, setIsSubscribing] = useState(false);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (topic && !subsctiptions.includes(topic)) {
+    if (topic && !subscriptions.includes(topic)) {
       setIsSubscribing(true);
       mqttClient.subscribe(topic, { qos: 0 }, (error) => {
         setIsSubscribing(false);
@@ -57,13 +57,13 @@ export default function Subscriptions({ mqttClient }: Props) {
           </div>
         </Stack>
       </form>
-      {!subsctiptions.length && (
+      {!subscriptions.length && (
         <Typography variant="body1">No subscriptions</Typography>
       )}
-      {!!subsctiptions.length && (
+      {!!subscriptions.length && (
         <Table aria-label="Topic subscriptions">
           <TableBody>
-            {subsctiptions.map((subscription) => (
+            {subscriptions.map((subscription) => (
               <TableRow key={subscription}>
                 <TableCell>{subscription}</TableCell>
               </TableRow>

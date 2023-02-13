@@ -43,7 +43,6 @@ export default function NewMessage({ mqttClient }: Props) {
           <TextField
             name="qos"
             label="QoS"
-            defaultValue="0"
             value={qos}
             onChange={(e) => setQos(parseInt(e.target.value, 10) as QoS)}
             select
