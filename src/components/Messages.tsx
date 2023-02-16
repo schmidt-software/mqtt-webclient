@@ -5,6 +5,7 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
+import { QoSOptions } from "./constants";
 import useMessages from "./useMessages";
 
 type Props = {
@@ -30,7 +31,7 @@ export default function Messages({ messages }: Props) {
           <TableRow key={id}>
             <TableCell style={{ whiteSpace: "pre-wrap" }}>{message}</TableCell>
             <TableCell>{topic}</TableCell>
-            <TableCell>{qos}</TableCell>
+            <TableCell>{QoSOptions[qos]}</TableCell>
           </TableRow>
         ))}
       </TableBody>

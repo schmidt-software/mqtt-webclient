@@ -7,13 +7,13 @@ const message1 = {
   id: 1,
   topic: "topic_1",
   message: "message_1",
-  qos: 0
+  qos: 0,
 } as const;
 const message2 = {
   id: 2,
   topic: "topic_2",
   message: "message_2",
-  qos: 1
+  qos: 1,
 } as const;
 
 describe("Messages", () => {
@@ -42,7 +42,9 @@ describe("Messages", () => {
     const dataCells = within(dataRows[0]).getAllByRole("cell");
     expect(dataCells[0]).toHaveTextContent(message1.message);
     expect(dataCells[1]).toHaveTextContent(message1.topic);
-    expect(dataCells[2]).toHaveTextContent(message1.qos.toString());
+    expect(dataCells[2]).toHaveTextContent(
+      new RegExp(message1.qos.toString() + " - ")
+    );
   });
 
   it("lists two messages", () => {
@@ -56,7 +58,9 @@ describe("Messages", () => {
       const dataCells = within(dataRows[index]).getAllByRole("cell");
       expect(dataCells[0]).toHaveTextContent(message);
       expect(dataCells[1]).toHaveTextContent(topic);
-      expect(dataCells[2]).toHaveTextContent(qos.toString());
+      expect(dataCells[2]).toHaveTextContent(
+        new RegExp(qos.toString() + " - ")
+      );
     });
   });
 });

@@ -1,6 +1,8 @@
 import { MqttClient, QoS } from "mqtt";
 import { FormEvent, useState } from "react";
 
+import { QoSOptions } from "./constants";
+
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -28,7 +30,7 @@ export default function NewMessage({ mqttClient }: Props) {
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
-        <Grid item xs={9}>
+        <Grid item xs={12} sm={8}>
           <TextField
             type="text"
             label="Topic"
@@ -39,7 +41,7 @@ export default function NewMessage({ mqttClient }: Props) {
             fullWidth
           />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={4}>
           <TextField
             name="qos"
             label="QoS"
@@ -48,9 +50,9 @@ export default function NewMessage({ mqttClient }: Props) {
             select
             fullWidth
           >
-            {[0, 1, 2].map((i) => (
-              <MenuItem key={i} value={i}>
-                {i}
+            {Object.entries(QoSOptions).map(([value, label]) => (
+              <MenuItem key={value} value={value}>
+                {label}
               </MenuItem>
             ))}
           </TextField>
